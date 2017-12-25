@@ -1,4 +1,5 @@
-#Introduction
+Introduction
+---
 test_svo2 is a sample project to use SVO2.0(http://rpg.ifi.uzh.ch/svo2.html).
 
 One can also find ros sample code from https://github.com/uzh-rpg/rpg_svo_example.
@@ -6,9 +7,11 @@ One can also find ros sample code from https://github.com/uzh-rpg/rpg_svo_exampl
 This project contains mono/stereo demo with/without ros.
 
 test environment: Ubuntu16.04+ros kinetic
+
 NOTE: If you want to run it in Ubuntu14.04+indigo, your should replace the svo binaries in svo2.0.tar.gz. You can download [here](http://rpg.ifi.uzh.ch/svo2.html)
 
-#How to build
+How to build
+---
 ```
 cd <your_catkin_workspace>/src
 git clone https://github.com/symao/test_svo2.git
@@ -18,7 +21,8 @@ cd ../..
 catkin_make
 ```
 
-#Run demo
+Run demo
+---
 1. run with euroc data with ROS
 - Download rosbag data from [here](http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets)
 - modify launch/euroc_stereo.launch, change the *.bag file path to your own path
@@ -35,7 +39,8 @@ catkin_make
 you can modify to run your own video files, do not forget to use your own calib params.
 
 
-#Q&A
+Q&A
+---
 1. libopencv*3.so.3.2 not found
 Ros kinetic use opencv 3.3.1, while svo2.0 need opencv 3.2, create softlink by 'ln -s libopencv*3.so.3.3.1 libopen*3.so.3.2', this is not a good solution, but it works.
 
