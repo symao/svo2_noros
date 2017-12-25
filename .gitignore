@@ -1,0 +1,5 @@
+build/
+*.orig
+*~
+*.pyc
+svo2.0/

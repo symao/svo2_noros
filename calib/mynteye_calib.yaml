@@ -1,0 +1,48 @@
+label: "mynteye"
+cameras:
+- camera:
+    type: pinhole
+    distortion:
+      type: radial-tangential
+      parameters:
+        cols: 1
+        rows: 4
+        data: [0,0,0,0]
+    image_height: 480
+    image_width: 752
+    intrinsics:
+      cols: 1
+      rows: 4
+      data: [431.3179390163068, 431.3179390163068, 404.4642372131348, 264.6879405975342]
+    label: cam0
+    line-delay-nanoseconds: 0
+  T_B_C:
+    cols: 4
+    rows: 4
+    data: [1, 0, 0, 0,
+           0, 1, 0, 0,
+           0, 0, 1, 0,
+           0, 0, 0, 1]
+- camera:
+    type: pinhole
+    distortion:
+      type: radial-tangential
+      parameters:
+        cols: 1
+        rows: 4
+        data: [0,0,0,0]
+    image_height: 480
+    image_width: 752
+    intrinsics:
+      cols: 1
+      rows: 4
+      data: [431.3179390163068, 431.3179390163068, 404.4642372131348, 264.6879405975342]
+    label: cam1
+    line-delay-nanoseconds: 0
+  T_B_C:
+    cols: 4
+    rows: 4
+    data: [1, 0, 0, 0.11943974440576235,
+           0, 1, 0, 0,
+           0, 0, 1, 0,
+           0, 0, 0, 1]
