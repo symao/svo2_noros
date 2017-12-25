@@ -1,0 +1,13 @@
+<launch>
+  <arg name="calib_file" default="$(find test_svo2)/calib/svo_test_pinhole.yaml"/>
+
+  <node pkg="test_svo2" type="demo_mono_node" name="svo" clear_params="true" output="screen">
+    <param name="calib_file" value="$(arg calib_file)" />
+    <rosparam file="$(find test_svo2)/param/pinhole.yaml" />
+  </node>
+
+  <node pkg="rosbag" type="play" name="player" output="log" args="--clock /home/symao/Downloads/svo_test_short.bag"/>
+
+  <!--node name="vis" pkg="rviz" type="rviz" args=" -d $(find test_svo2)/rviz_config.rviz" /-->
+
+</launch>
