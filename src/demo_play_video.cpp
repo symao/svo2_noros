@@ -12,13 +12,41 @@
 #include "svo_factory.h"
 #include "format_convert.h"
 
+#define DATASET5
+
+// sf outside 1A 1B 1C, forward
+#ifdef DATASET1
+std::string video_file = "/home/symao/data/mynteye/20171107vins_outside/1/img.avi";
+std::string video_ts_file = "/home/symao/data/mynteye/20171107vins_outside/1/imgts.txt";
+#endif
+
+// sf inside 1C4F, forward
+#ifdef DATASET2
+std::string video_file = "/home/symao/data/mynteye/20171107vins/img.avi";
+std::string video_ts_file = "/home/symao/data/mynteye/20171107vins/imgts.txt";
+#endif
+
+// shiyan outside, downward
+#ifdef DATASET3
+std::string video_file = "/home/symao/data/mynteye/20171220/15/img_cut.avi";
+std::string video_ts_file = "/home/symao/data/mynteye/20171220/15/img_cutts.txt";
+#endif
+
+// shiyan outside police station, downward
+#ifdef DATASET4
+std::string video_file = "/home/symao/data/mynteye/20171220/17/img_cut.avi";
+std::string video_ts_file = "/home/symao/data/mynteye/20171220/17/img_cutts.txt";
+#endif
+
+// shiyan outside walk, downward
+#ifdef DATASET5
+std::string video_file = "/home/symao/data/mynteye/20171220/17/img_cut1.avi";
+std::string video_ts_file = "/home/symao/data/mynteye/20171220/17/img_cut1ts.txt";
+#endif
+
+
 int main(int argc, char **argv)
 {
-    std::string video_file = "/home/symao/data/mynteye/20171107vins_outside/1/img.avi";
-    std::string video_ts_file = "/home/symao/data/mynteye/20171107vins_outside/1/imgts.txt";
-    // std::string video_file = "/home/symao/data/mynteye/20171220/15/img_cut.avi";
-    // std::string video_ts_file = "/home/symao/data/mynteye/20171220/15/img_cutts.txt";
-
     //============ init =============//
     google::InitGoogleLogging(argv[0]);
     google::ParseCommandLineFlags(&argc, &argv, true);
