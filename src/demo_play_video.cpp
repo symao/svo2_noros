@@ -7,12 +7,13 @@
 #include <svo/frame_handler_stereo.h>
 // vs_common headers
 #include <vs_common/vs_viz3d.h>
+#include <vs_common/vs_transform.h>
 #include <vs_common/vs_tictoc.h>
 // local headers
 #include "svo_factory.h"
 #include "format_convert.h"
 
-#define DATASET5
+#define DATASET1
 
 // sf outside 1A 1B 1C, forward
 #ifdef DATASET1
@@ -93,6 +94,9 @@ int main(int argc, char **argv)
     viz.updateWidget("cood", cv::viz::WCoordinateSystem(1));
     std::vector<cv::Affine3f> traj;
 
+    FILE* fp_log = fopen("trajectory_svo2.0_binary.txt","w");
+    fprintf(fp_log, "#imgidx timestamp x y z qw qx qy qz cost_ms\n");
+
     cv::Mat image;
     double tframe;
     for(int i=0; i<n_img; i++)
@@ -122,11 +126,7 @@ int main(int argc, char **argv)
             last_frame = vo_mono->getLastFrames();
         }
         float cost_ms = toc("process");
-#if 0
-        std::ofstream fout("/home/symao/cost.txt",std::ios::app);
-        fout<<cost_ms<<std::endl;
-        fout.close();
-#endif
+
         cv::Mat cv_T_w_b = svo_trans_to_cv_mat(last_frame->get_T_W_B());
         // std::cout<<"T:"<<cv_T_w_b<<std::endl;
 
@@ -136,7 +136,24 @@ int main(int argc, char **argv)
         cv::imshow("image",image);
         char key = cv::waitKey(10);
         if(key == 27) break;
+
+    #if 1
+        {
+            cv::Mat cam_pose;
+            cv_T_w_b.convertTo(cam_pose, CV_32FC1);
+            float xyz[3] = {cam_pose.at<float>(0,3),cam_pose.at<float>(1,3),cam_pose.at<float>(2,3)};
+            float r[9] = {cam_pose.at<float>(0,0),cam_pose.at<float>(0,1),cam_pose.at<float>(0,2),
+                          cam_pose.at<float>(1,0),cam_pose.at<float>(1,1),cam_pose.at<float>(1,2),
+                          cam_pose.at<float>(2,0),cam_pose.at<float>(2,1),cam_pose.at<float>(2,2)};
+            float q[4] = {0};
+            rot2quat(r,q);
+            fprintf(fp_log, "%d %f %f %f %f %f %f %f %f %f\n", i, tframe, xyz[0], xyz[1], xyz[2],
+                                                            q[0], q[1], q[2], q[3], cost_ms);
+            fflush(fp_log);
+        }
+    #endif
     }
+    fclose(fp_log);
 
     viz.updateWidget("traj", cv::viz::WTrajectory(traj, 2, 1, cv::viz::Color::green()));
     printf("Press any key to exit.\n");
